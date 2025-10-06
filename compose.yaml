@@ -1,0 +1,8 @@
+services:
+  mysql:
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_DATABASE=metasearch'
+      - 'MYSQL_ROOT_PASSWORD=secret'
+    ports:
+      - '3306'

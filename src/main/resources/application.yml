@@ -1,0 +1,5 @@
+spring:
+  application.name: metasearch
+
+standard-ebooks:
+  token: TOKEN
