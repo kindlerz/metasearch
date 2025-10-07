@@ -31,9 +31,9 @@ public class SearchController {
   @GetMapping
   public ResponseEntity<Void> searchBook(@RequestParam(name = "q") String query) {
     System.out.printf("Query: %s%n", query);
-    /*var ebooks = standardEbooksIntegration.retrieveAllEbooksFromFeed()
+    var ebooks = standardEbooksIntegration.retrieveAllEbooksFromFeed()
         .parallelStream().map(this::convertToBook).toList();
-    bookService.saveBooks(ebooks); */
+    //bookService.saveBooks(ebooks);
 
     return ResponseEntity.ok().build();
   }

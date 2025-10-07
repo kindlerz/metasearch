@@ -25,6 +25,8 @@ dependencies {
 	implementation 'org.flywaydb:flyway-mysql'
 	implementation 'com.rometools:rome:2.1.0'
 	implementation 'org.jsoup:jsoup:1.21.2'
+	implementation 'net.javacrumbs.shedlock:shedlock-spring:6.10.0'
+	implementation 'net.javacrumbs.shedlock:shedlock-provider-jdbc-template:6.10.0'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
 	runtimeOnly 'com.mysql:mysql-connector-j'

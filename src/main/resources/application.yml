@@ -10,3 +10,4 @@ spring:
     show-sql: true
 standard-ebooks:
   token: TOKEN
+  opds-url: https://standardebooks.org/feeds/opds/all
