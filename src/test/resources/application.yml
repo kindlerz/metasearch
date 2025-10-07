@@ -4,6 +4,7 @@ spring:
   flyway:
     connect-retries: 3
     connect-retries-interval: 500
-  standard-ebooks:
-    token: TOKEN
-    opds-url: http://localhost:9696
+
+standard-ebooks:
+  token: TOKEN
+  opds-url: http://localhost:9696
