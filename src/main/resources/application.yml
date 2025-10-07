@@ -1,5 +1,12 @@
 spring:
   application.name: metasearch
-
+  datasource:
+    url: jdbc:mysql://localhost:3306/metasearch?connectionTimeZone=UTC&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: secret
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate.ddl-auto: none
+    show-sql: true
 standard-ebooks:
   token: TOKEN
