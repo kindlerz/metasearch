@@ -1,26 +1,22 @@
 package ink.kindler.metasearch.rest;
 
-import ink.kindler.metasearch.integration.service.StandardEbooksIntegration;
-import ink.kindler.metasearch.integration.service.model.StandardEbooksBook;
 import ink.kindler.metasearch.persistent.entity.Book;
-import ink.kindler.metasearch.persistent.entity.BookSummary;
 import ink.kindler.metasearch.persistent.entity.Provider;
-import ink.kindler.metasearch.service.BookService;
+import ink.kindler.metasearch.persistent.projection.BookOverview;
+import ink.kindler.metasearch.rest.model.BookOverviewResponse;
+import ink.kindler.metasearch.rest.model.BookResponse;
 import ink.kindler.metasearch.service.SearchService;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/v1/search")
+@RequestMapping("/v1/books")
 public class SearchController {
-  @Autowired
-  private StandardEbooksIntegration standardEbooksIntegration;
-  @Autowired
-  private BookService bookService;
 
   private final SearchService searchService;
 
@@ -28,30 +24,43 @@ public class SearchController {
     this.searchService = searchService;
   }
 
-  @GetMapping
-  public ResponseEntity<Void> searchBook(@RequestParam(name = "q") String query) {
-    System.out.printf("Query: %s%n", query);
-    var ebooks = standardEbooksIntegration.retrieveAllEbooksFromFeed()
-        .parallelStream().map(this::convertToBook).toList();
-    //bookService.saveBooks(ebooks);
-
-    return ResponseEntity.ok().build();
+  @GetMapping("/search")
+  public ResponseEntity<List<BookOverviewResponse>> searchBook(@RequestParam(name="provider") Provider provider, @RequestParam(name = "q") String query) {
+    if (query.length() > 100) {
+      return ResponseEntity.badRequest().build();
+    }
+    var books = searchService.search(provider, query).parallelStream().map(this::convertToBookOverview).toList();
+    return ResponseEntity.ok().body(books);
   }
 
-  private Book convertToBook(StandardEbooksBook standardEbooksBook) {
-    var book = new Book();
-    var bookSummary = new BookSummary();
-    bookSummary.setSummary(standardEbooksBook.summary());
-    bookSummary.setBook(book);
-    book.setTitle(standardEbooksBook.title());
-    book.setAuthor(standardEbooksBook.author());
-    book.setSummary(bookSummary);
-    book.setCoverImageUrl(standardEbooksBook.coverImage());
-    book.setEpubUrl(standardEbooksBook.epub());
-    book.setKoboUrl(standardEbooksBook.kobo());
-    book.setAzwUrl(standardEbooksBook.azw());
-    book.setHtmlUrl(standardEbooksBook.html());
-    book.setProvider(Provider.STANDARD_EBOOK);
-    return book;
+  @GetMapping("/{id}")
+  public ResponseEntity<BookResponse> getBookDetailsById(@PathVariable("id") Long id) {
+    return searchService.findBookById(id).map(this::convertToBookResponse)
+        .map(ResponseEntity::ok)
+        .orElse(ResponseEntity.notFound().build());
+  }
+
+  private BookOverviewResponse convertToBookOverview(BookOverview bookOverview) {
+    return new BookOverviewResponse(
+        bookOverview.getId(),
+        bookOverview.getTitle(),
+        bookOverview.getAuthor(),
+        bookOverview.getCoverImageUrl()
+    );
+  }
+
+  private BookResponse convertToBookResponse(Book book) {
+    return new BookResponse(
+        book.getId(),
+        book.getTitle(),
+        book.getAuthor(),
+        book.getCoverImageUrl(),
+        book.getEpubUrl(),
+        book.getKoboUrl(),
+        book.getMobiUrl(),
+        book.getAzwUrl(),
+        book.getHtmlUrl(),
+        book.getSummary().getSummary()
+    );
   }
 }

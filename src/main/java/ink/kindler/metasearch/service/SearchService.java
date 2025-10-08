@@ -1,6 +1,13 @@
 package ink.kindler.metasearch.service;
 
-public interface SearchService {
+import ink.kindler.metasearch.persistent.entity.Book;
+import ink.kindler.metasearch.persistent.entity.Provider;
+import ink.kindler.metasearch.persistent.projection.BookOverview;
+import java.util.List;
+import java.util.Optional;
 
-  void search(String query);
+public interface SearchService {
+  List<BookOverview> search(Provider provider, String query);
+
+  Optional<Book> findBookById(Long id);
 }
