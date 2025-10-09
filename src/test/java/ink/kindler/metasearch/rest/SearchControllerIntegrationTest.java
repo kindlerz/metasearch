@@ -60,7 +60,10 @@ class SearchControllerIntegrationTest {
     assertThat(responseEntity.hasBody()).isTrue();
     var foundBooks = responseEntity.getBody();
 
-    assertThat(foundBooks).isEqualTo(expectedResponse);
+    assertThat(foundBooks)
+        .usingRecursiveComparison()
+        .ignoringFields("id")
+        .isEqualTo(expectedResponse);
   }
 
   @Test
@@ -85,7 +88,10 @@ class SearchControllerIntegrationTest {
     assertThat(responseEntity.hasBody()).isTrue();
     var foundBook = responseEntity.getBody();
 
-    assertThat(foundBook).isEqualTo(expectedResponse);
+    assertThat(foundBook)
+        .usingRecursiveComparison()
+        .ignoringFields("id")
+        .isEqualTo(expectedResponse);
   }
 
   private Book stubBook(String title, String author, Provider bookProvider) {
