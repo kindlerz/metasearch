@@ -4,6 +4,7 @@ spring:
   flyway:
     connect-retries: 3
     connect-retries-interval: 500
+    locations: classpath:db/migration
 
 standard-ebooks:
   token: TOKEN

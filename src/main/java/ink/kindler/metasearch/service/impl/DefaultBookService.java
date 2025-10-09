@@ -4,21 +4,19 @@ import ink.kindler.metasearch.persistent.entity.Book;
 import ink.kindler.metasearch.persistent.entity.Provider;
 import ink.kindler.metasearch.persistent.projection.BookOverview;
 import ink.kindler.metasearch.persistent.repository.BookRepository;
-import ink.kindler.metasearch.persistent.repository.BookSummaryRepository;
 import ink.kindler.metasearch.service.BookService;
-import java.util.List;
-import java.util.Optional;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DefaultBookService implements BookService {
   private final BookRepository bookRepository;
-  private final BookSummaryRepository bookSummaryRepository;
 
-  public DefaultBookService(BookRepository bookRepository, BookSummaryRepository bookSummaryRepository) {
+  public DefaultBookService(BookRepository bookRepository) {
     this.bookRepository = bookRepository;
-    this.bookSummaryRepository = bookSummaryRepository;
   }
 
   @Override

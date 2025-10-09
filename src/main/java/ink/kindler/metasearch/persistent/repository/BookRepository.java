@@ -22,6 +22,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
         WHERE b.provider = :provider
           AND (LOWER(b.author) LIKE LOWER(CONCAT('%', :query, '%'))
                OR LOWER(b.title) LIKE LOWER(CONCAT('%', :query, '%')))
+        ORDER BY b.author ASC, b.title ASC
       """)
   List<BookOverview> searchBooks(@Param("provider") Provider provider, @Param("query") String query, Pageable pageable);
 }
