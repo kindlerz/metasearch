@@ -1,0 +1,11 @@
+spring:
+  # Introduce retries to make sure flyway won't fail before PostgreSQL
+  # container is ready, and tries again 3x. It's a way to tackle mac M1
+  flyway:
+    connect-retries: 3
+    connect-retries-interval: 500
+    locations: classpath:db/migration
+
+standard-ebooks:
+  token: TOKEN
+  opds-url: http://localhost:${wiremock.server.port:0}/feeds/opds/all

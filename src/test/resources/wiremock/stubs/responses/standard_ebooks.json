@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/feeds/opds/all"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "standard_ebooks_response.xml",
+    "headers": {
+      "Content-Type": "application/atom+xml;profile=opds-catalog;kind=acquisition; charset=utf-8"
+    }
+  }
+}

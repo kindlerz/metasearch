@@ -4,11 +4,16 @@ import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
+import ink.kindler.metasearch.integration.configuration.StandardEbooksProperties;
 import ink.kindler.metasearch.integration.service.StandardEbooksIntegration;
 import ink.kindler.metasearch.integration.service.model.StandardEbooksBook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -20,26 +25,33 @@ import static ink.kindler.metasearch.util.HtmlUtil.stripHtml;
 
 @Component
 public class DefaultStandardEbooksIntegration implements StandardEbooksIntegration {
-  private static final String OPDS_URL = "https://standardebooks.org/feeds/opds/all";
+  private static final Logger logger = LoggerFactory.getLogger(DefaultStandardEbooksIntegration.class);
 
   private final RestTemplate restTemplate;
+  private final StandardEbooksProperties standardEbooksProperties;
 
-  public DefaultStandardEbooksIntegration(RestTemplateBuilder restTemplateBuilder) {
+  public DefaultStandardEbooksIntegration(RestTemplateBuilder restTemplateBuilder, StandardEbooksProperties standardEbooksProperties) {
+    this.standardEbooksProperties = standardEbooksProperties;
     this.restTemplate = restTemplateBuilder
-        .basicAuthentication("TOKEN", "")
+        .basicAuthentication(standardEbooksProperties.getToken(), "")
         .build();
   }
 
   @Override
   public List<StandardEbooksBook> retrieveAllEbooksFromFeed() {
-    var responseEntity = restTemplate.getForEntity(OPDS_URL, Resource.class);
-    if (!responseEntity.getStatusCode().is2xxSuccessful()) {
-      // TODO log warning
+    try {
+      var responseEntity = restTemplate.getForEntity(standardEbooksProperties.getOpdsUrl(), Resource.class);
+      if (!responseEntity.getStatusCode().is2xxSuccessful()) {
+        logger.warn("Received none 200 response from StandardEbooks server. Response code: {}", responseEntity.getStatusCode());
+        return List.of();
+      }
+      return convertResponseBodyToFeedEntries(responseEntity.getBody())
+          .parallelStream()
+          .map(this::mapToBook).toList();
+    } catch (HttpClientErrorException | HttpServerErrorException exception) {
+      logger.error("Request failed with status {}: {}", exception.getStatusCode(), exception.getResponseBodyAsString());
       return List.of();
     }
-    return convertResponseBodyToFeedEntries(responseEntity.getBody())
-        .parallelStream()
-        .map(this::mapToBook).toList();
   }
 
   private StandardEbooksBook mapToBook(SyndEntry syndEntry) {
@@ -51,7 +63,8 @@ public class DefaultStandardEbooksIntegration implements StandardEbooksIntegrati
         syndEntry.getLinks().get(3).getHref(), // Epub
         syndEntry.getLinks().get(5).getHref(), // Kobo
         syndEntry.getLinks().get(6).getHref(), // Azw3
-        syndEntry.getLinks().get(7).getHref() // Html
+        syndEntry.getLinks().get(7).getHref(), // Html
+        syndEntry.getUpdatedDate().toInstant()
     );
   }
 
@@ -63,7 +76,7 @@ public class DefaultStandardEbooksIntegration implements StandardEbooksIntegrati
     try {
       return new SyndFeedInput().build(new XmlReader(inputStream)).getEntries();
     } catch (FeedException | IOException exception) {
-      // TODO Handle the exception
+      logger.error("Failed to convert StandardEbooks response to Syndicate Entries", exception);
       return List.of();
     }
   }
@@ -72,7 +85,7 @@ public class DefaultStandardEbooksIntegration implements StandardEbooksIntegrati
     try {
       return Optional.of(body.getInputStream());
     } catch (IOException exception) {
-      // TODO log error and return nothing
+      logger.error("Failed to get input stream of StandardEbooks response", exception);
     }
     return Optional.empty();
   }

@@ -25,10 +25,18 @@ dependencies {
 	implementation 'org.flywaydb:flyway-mysql'
 	implementation 'com.rometools:rome:2.1.0'
 	implementation 'org.jsoup:jsoup:1.21.2'
+	implementation 'net.javacrumbs.shedlock:shedlock-spring:6.10.0'
+	implementation 'net.javacrumbs.shedlock:shedlock-provider-jdbc-template:6.10.0'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
 	runtimeOnly 'com.mysql:mysql-connector-j'
+	testImplementation 'org.springframework.cloud:spring-cloud-contract-wiremock:4.3.0'
+	testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-stub-runner:4.3.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+	testImplementation 'org.testcontainers:junit-jupiter'
+	testImplementation 'org.testcontainers:mysql'
+	testImplementation 'org.assertj:assertj-core:4.0.0-M1'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
