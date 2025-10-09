@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -37,14 +39,19 @@ public class DefaultStandardEbooksIntegration implements StandardEbooksIntegrati
 
   @Override
   public List<StandardEbooksBook> retrieveAllEbooksFromFeed() {
-    var responseEntity = restTemplate.getForEntity(standardEbooksProperties.getOpdsUrl(), Resource.class);
-    if (!responseEntity.getStatusCode().is2xxSuccessful()) {
-      logger.warn("Received none 200 response from StandardEbooks server. Response code: {}", responseEntity.getStatusCode());
+    try {
+      var responseEntity = restTemplate.getForEntity(standardEbooksProperties.getOpdsUrl(), Resource.class);
+      if (!responseEntity.getStatusCode().is2xxSuccessful()) {
+        logger.warn("Received none 200 response from StandardEbooks server. Response code: {}", responseEntity.getStatusCode());
+        return List.of();
+      }
+      return convertResponseBodyToFeedEntries(responseEntity.getBody())
+          .parallelStream()
+          .map(this::mapToBook).toList();
+    } catch (HttpClientErrorException | HttpServerErrorException exception) {
+      logger.error("Request failed with status {}: {}", exception.getStatusCode(), exception.getResponseBodyAsString());
       return List.of();
     }
-    return convertResponseBodyToFeedEntries(responseEntity.getBody())
-        .parallelStream()
-        .map(this::mapToBook).toList();
   }
 
   private StandardEbooksBook mapToBook(SyndEntry syndEntry) {

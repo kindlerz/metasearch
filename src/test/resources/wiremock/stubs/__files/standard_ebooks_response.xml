@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="https://standardebooks.org/feeds/opds/style" type="text/xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/terms/" xmlns:fh="http://purl.org/syndication/history/1.0" xmlns:schema="http://schema.org/">
+    <id>https://standardebooks.org/feeds/opds/all</id>
+    <link href="https://standardebooks.org/feeds/opds/all" rel="self" type="application/atom+xml;profile=opds-catalog;kind=acquisition; charset=utf-8"/>
+    <link href="https://standardebooks.org/feeds/opds" rel="start" type="application/atom+xml;profile=opds-catalog;kind=navigation; charset=utf-8"/>
+    <link href="https://standardebooks.org/feeds/opds" rel="up" type="application/atom+xml;profile=opds-catalog;kind=navigation; charset=utf-8"/>
+    <link href="https://standardebooks.org/feeds/opds/all" rel="http://opds-spec.org/crawlable" type="application/atom+xml;profile=opds-catalog;kind=acquisition; charset=utf-8"/>
+    <link href="https://standardebooks.org/opensearch" rel="search" title="Standard Ebooks" type="application/opensearchdescription+xml"/>
+    <title>All Standard Ebooks</title>
+    <subtitle>All Standard Ebooks, most-recently-updated first. This is a Complete Acquisition Feed as defined in OPDS 1.2 §2.5.</subtitle>
+    <icon>https://standardebooks.org/images/logo.png</icon>
+    <updated>2025-10-08T21:57:58Z</updated>
+    <fh:complete/>
+    <author>
+        <name>Standard Ebooks</name>
+        <uri>https://standardebooks.org</uri>
+    </author>
+    <entry>
+        <id>https://standardebooks.org/ebooks/h-g-wells/the-invisible-man</id>
+        <dc:identifier>https://standardebooks.org/ebooks/h-g-wells/the-invisible-man</dc:identifier>
+        <title>The Invisible Man</title>
+        <author>
+            <name>H. G. Wells</name>
+            <uri>https://standardebooks.org/ebooks/h-g-wells</uri>
+            <schema:alternateName>Herbert George Wells</schema:alternateName>
+            <schema:sameAs>https://en.wikipedia.org/wiki/H._G._Wells</schema:sameAs>
+            <schema:sameAs>http://id.loc.gov/authorities/names/n79063613</schema:sameAs>
+        </author>
+        <published>2017-10-05T20:56:25Z</published>
+        <dc:issued>2017-10-05T20:56:25Z</dc:issued>
+        <updated>2025-10-08T21:56:51Z</updated>
+        <dc:language>en-GB</dc:language>
+        <dc:publisher>Standard Ebooks</dc:publisher>
+        <rights>Public domain in the United States. Users located outside of the United States must check their local laws before using this ebook. Original content released to the public domain via the Creative Commons CC0 1.0 Universal Public Domain Dedication.</rights>
+        <summary type="text">A scientist named Griffin creates a serum to render himself invisible and subsequently descends into madness.</summary>
+        <content type="html">&lt;p&gt;Griffin, a scientist...&lt;/p&gt;</content>
+        <category scheme="http://purl.org/dc/terms/LCSH" term="Science fiction"/>
+        <category scheme="http://purl.org/dc/terms/LCSH" term="Psychological fiction"/>
+        <category scheme="http://purl.org/dc/terms/LCSH" term="Scientists -- Fiction"/>
+        <category scheme="http://purl.org/dc/terms/LCSH" term="Mentally ill -- Fiction"/>
+        <category scheme="https://standardebooks.org/vocab/subjects" term="Science Fiction"/>
+        <link href="https://standardebooks.org/ebooks/h-g-wells/the-invisible-man/downloads/cover.jpg" rel="http://opds-spec.org/image" type="image/jpeg"/>
+        <link href="https://standardebooks.org/ebooks/h-g-wells/the-invisible-man/downloads/cover-thumbnail.jpg" rel="http://opds-spec.org/image/thumbnail" type="image/jpeg"/>
+        <link href="https://standardebooks.org/ebooks/h-g-wells/the-invisible-man" rel="alternate" title="This ebook’s page at Standard Ebooks" type="application/xhtml+xml"/>
+        <link href="https://standardebooks.org/ebooks/h-g-wells/the-invisible-man/downloads/h-g-wells_the-invisible-man.epub?source=feed" length="652842" rel="http://opds-spec.org/acquisition/open-access" title="Recommended compatible epub" type="application/epub+zip"/>
+        <link href="https://standardebooks.org/ebooks/h-g-wells/the-invisible-man/downloads/h-g-wells_the-invisible-man_advanced.epub?source=feed" length="694925" rel="http://opds-spec.org/acquisition/open-access" title="Advanced epub" type="application/epub+zip"/>
+        <link href="https://standardebooks.org/ebooks/h-g-wells/the-invisible-man/downloads/h-g-wells_the-invisible-man.kepub.epub?source=feed" length="634428" rel="http://opds-spec.org/acquisition/open-access" title="Kobo Kepub epub" type="application/kepub+zip"/>
+        <link href="https://standardebooks.org/ebooks/h-g-wells/the-invisible-man/downloads/h-g-wells_the-invisible-man.azw3?source=feed" length="748249" rel="http://opds-spec.org/acquisition/open-access" title="Amazon Kindle azw3" type="application/x-mobipocket-ebook"/>
+        <link href="https://standardebooks.org/ebooks/h-g-wells/the-invisible-man/text/single-page" length="391991" rel="http://opds-spec.org/acquisition/open-access" title="XHTML" type="application/xhtml+xml"/>
+    </entry>
+    <entry>
+        <id>https://standardebooks.org/ebooks/helen-herron-taft/recollections-of-full-years</id>
+        <dc:identifier>https://standardebooks.org/ebooks/helen-herron-taft/recollections-of-full-years</dc:identifier>
+        <title>Recollections of Full Years</title>
+        <author>
+            <name>Helen Herron Taft</name>
+            <uri>https://standardebooks.org/ebooks/helen-herron-taft</uri>
+            <schema:sameAs>https://en.wikipedia.org/wiki/Helen_Herron_Taft</schema:sameAs>
+            <schema:sameAs>http://id.loc.gov/authorities/names/n85185523</schema:sameAs>
+        </author>
+        <published>2025-10-07T17:03:37Z</published>
+        <dc:issued>2025-10-07T17:03:37Z</dc:issued>
+        <updated>2025-10-08T02:04:59Z</updated>
+        <dc:language>en-GB</dc:language>
+        <dc:publisher>Standard Ebooks</dc:publisher>
+        <rights>Public domain in the United States. Users located outside of the United States must check their local laws before using this ebook. Original content released to the public domain via the Creative Commons CC0 1.0 Universal Public Domain Dedication.</rights>
+        <summary type="text">Helen Herron Taft, wife of William Howard Taft, the twenty-seventh President of the United States, recalls her life married to one of America’s most influential political figures.</summary>
+        <content type="html">&lt;p&gt;&lt;a href="https://standardebooks.org/ebooks/helen-herron-taft"&gt;Helen Herron Taft&lt;/a&gt; served as First Lady...&lt;/p&gt;</content>
+        <category scheme="http://purl.org/dc/terms/LCSH" term="Autobiographies"/>
+        <category scheme="http://purl.org/dc/terms/LCSH" term="Philippines -- Description and travel"/>
+        <category scheme="http://purl.org/dc/terms/LCSH" term="Washington (D.C.) -- Social life and customs"/>
+        <category scheme="http://purl.org/dc/terms/LCSH" term="White House (Washington, D.C.)"/>
+        <category scheme="http://purl.org/dc/terms/LCSH" term="Presidents' spouses -- United States -- Biography"/>
+        <category scheme="http://purl.org/dc/terms/LCSH" term="Taft, Helen Herron, 1861-1943"/>
+        <category scheme="https://standardebooks.org/vocab/subjects" term="Biography"/>
+        <category scheme="https://standardebooks.org/vocab/subjects" term="Memoir"/>
+        <category scheme="https://standardebooks.org/vocab/subjects" term="Nonfiction"/>
+        <category scheme="https://standardebooks.org/vocab/subjects" term="Travel"/>
+        <link href="https://standardebooks.org/ebooks/helen-herron-taft/recollections-of-full-years/downloads/cover.jpg" rel="http://opds-spec.org/image" type="image/jpeg"/>
+        <link href="https://standardebooks.org/ebooks/helen-herron-taft/recollections-of-full-years/downloads/cover-thumbnail.jpg" rel="http://opds-spec.org/image/thumbnail" type="image/jpeg"/>
+        <link href="https://standardebooks.org/ebooks/helen-herron-taft/recollections-of-full-years" rel="alternate" title="This ebook’s page at Standard Ebooks" type="application/xhtml+xml"/>
+        <link href="https://standardebooks.org/ebooks/helen-herron-taft/recollections-of-full-years/downloads/helen-herron-taft_recollections-of-full-years.epub?source=feed" length="10742348" rel="http://opds-spec.org/acquisition/open-access" title="Recommended compatible epub" type="application/epub+zip"/>
+        <link href="https://standardebooks.org/ebooks/helen-herron-taft/recollections-of-full-years/downloads/helen-herron-taft_recollections-of-full-years_advanced.epub?source=feed" length="11495178" rel="http://opds-spec.org/acquisition/open-access" title="Advanced epub" type="application/epub+zip"/>
+        <link href="https://standardebooks.org/ebooks/helen-herron-taft/recollections-of-full-years/downloads/helen-herron-taft_recollections-of-full-years.kepub.epub?source=feed" length="10716694" rel="http://opds-spec.org/acquisition/open-access" title="Kobo Kepub epub" type="application/kepub+zip"/>
+        <link href="https://standardebooks.org/ebooks/helen-herron-taft/recollections-of-full-years/downloads/helen-herron-taft_recollections-of-full-years.azw3?source=feed" length="10841407" rel="http://opds-spec.org/acquisition/open-access" title="Amazon Kindle azw3" type="application/x-mobipocket-ebook"/>
+        <link href="https://standardebooks.org/ebooks/helen-herron-taft/recollections-of-full-years/text/single-page" length="13948564" rel="http://opds-spec.org/acquisition/open-access" title="XHTML" type="application/xhtml+xml"/>
+    </entry>
+</feed>

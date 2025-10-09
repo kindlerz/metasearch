@@ -8,4 +8,4 @@ spring:
 
 standard-ebooks:
   token: TOKEN
-  opds-url: http://localhost:9696
+  opds-url: http://localhost:${wiremock.server.port:0}/feeds/opds/all

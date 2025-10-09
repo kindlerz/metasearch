@@ -11,7 +11,7 @@ public class TestcontainersConfiguration {
 
   @Bean
   @ServiceConnection
-  MySQLContainer<?> postgresContainer() {
+  MySQLContainer<?> mySqlContainer() {
     return new MySQLContainer<>(DockerImageName.parse("mysql:8.0.36"));
   }
 }

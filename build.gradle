@@ -30,6 +30,8 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
 	runtimeOnly 'com.mysql:mysql-connector-j'
+	testImplementation 'org.springframework.cloud:spring-cloud-contract-wiremock:4.3.0'
+	testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-stub-runner:4.3.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.boot:spring-boot-testcontainers'
 	testImplementation 'org.testcontainers:junit-jupiter'
