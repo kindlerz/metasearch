@@ -3,10 +3,6 @@ on:
   pull_request:
     branches:
       - master
-  # TODO remove once deployment script is added
-  push:
-    branches:
-      - master
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,4 +15,4 @@ jobs:
           java-version: '21'
           cache: 'gradle'
       - name: Run tests
-        run: ./gradlew build --no-daemon
+        run: ./gradlew clean build --no-daemon
