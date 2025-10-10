@@ -1,0 +1,58 @@
+name: Build and deploy
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '21'
+          cache: 'gradle'
+      - name: Run tests
+        run: ./gradlew clean test --no-daemon
+      - name: Update release version file
+        shell: bash
+        run: |
+          chmod +x "${GITHUB_WORKSPACE}/update_release_version.sh"
+          ./${GIHUB_WORKSPACE}/update_release_version.sh
+          echo "TAGGED_VERSION<<EOF" >> $GITHUB_OUTPUT
+          echo "$(cat ./version.txt)" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+        id: version
+      - name: Build with Gradle
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: ./gradlew clean bootJar --no-daemon
+      - name: Build and push Docker image
+        shell: bash
+        env:
+          TAGGED_VERSION: ${{ steps.version.outputs.TAGGED_VERSION }}
+          EMAIL: ${{ secrets.EMAIL }}
+          USERNAME: ${{ secrets.USERNAME }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          echo "New tag version is ${TAGGED_VERSION}"
+          pwd ${GITHUB_WORKSPACE}
+          chmod +x "${GITHUB_WORKSPACE}/util/release.sh"
+          ./${GIHUB_WORKSPACE}/util/release.sh
+      - name: Deploy to production
+        shell: bash
+        env:
+          TAGGED_VERSION: ${{ steps.version.outputs.TAGGED_VERSION }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          WEBHOOK_TOKEN: ${{ secrets.WEBHOOK_TOKEN }}
+        run: |
+          pwd ${GITHUB_WORKSPACE}
+          chmod +x "${GITHUB_WORKSPACE}/util/webhook_deploy.sh"
+          ./${GIHUB_WORKSPACE}/util/webhook_deploy.sh
