@@ -47,7 +47,7 @@ class SearchControllerIntegrationTest {
 
   @Test
   void shouldSearchBook() {
-    var endpoint = "http://localhost:%s/v1/books/search?q=mark&provider=STANDARD_EBOOK".formatted(port);
+    var endpoint = "http://localhost:%s/v1/books/search?q=mark&provider=STANDARD_EBOOKS".formatted(port);
     var expectedResponse = List.of(
         new BookOverviewResponse(4L, "The Mark of Zorro", "Johnston McCulley", "https://coverimageurl.com"),
         new BookOverviewResponse(1L, "The Adventures of Tom Sawyer", "Mark Twain", "https://coverimageurl.com")

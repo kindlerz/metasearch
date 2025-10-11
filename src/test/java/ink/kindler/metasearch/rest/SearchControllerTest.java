@@ -70,7 +70,7 @@ class SearchControllerTest {
 
     mockMvc.perform(get("/v1/books/search")
             .queryParam("q", "Mark")
-            .queryParam("provider", "STANDARD_EBOOK"))
+            .queryParam("provider", "STANDARD_EBOOKS"))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(content().json(BOOK_SEARCH_RESPONSE));
@@ -80,7 +80,7 @@ class SearchControllerTest {
   void shouldReturnBadRequestIfQuerySizeExceedsOneHundredCharacters() throws Exception {
     mockMvc.perform(get("/v1/books/search")
             .queryParam("q", QUERY_HUNDRED_FIVE_CHARACTERS)
-            .queryParam("provider", "STANDARD_EBOOK"))
+            .queryParam("provider", "STANDARD_EBOOKS"))
         .andDo(print())
         .andExpect(status().isBadRequest());
   }
