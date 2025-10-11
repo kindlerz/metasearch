@@ -63,7 +63,7 @@ class SearchControllerTest {
 
   @Test
   void shouldSearchBookByQuery() throws Exception {
-    when(searchService.search(Provider.STANDARD_EBOOK, "Mark")).thenReturn(List.of(
+    when(searchService.search(Provider.STANDARD_EBOOKS, "Mark")).thenReturn(List.of(
         stubBookOverview(1L, "The Adventures of Tom Sawyer", "Mark Twain"),
         stubBookOverview(2L, "The Mark of Zorro", "Johnston McCulley")
     ));
@@ -116,7 +116,7 @@ class SearchControllerTest {
     book.setMobiUrl("https://mobiurl.com");
     book.setAzwUrl("https://azwurl.com");
     book.setHtmlUrl("https://htmlurl.com");
-    book.setProvider(Provider.STANDARD_EBOOK);
+    book.setProvider(Provider.STANDARD_EBOOKS);
     return book;
   }
 

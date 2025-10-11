@@ -45,7 +45,7 @@ public class StandardEbooksIndexer {
     book.setKoboUrl(standardEbooksBook.kobo());
     book.setAzwUrl(standardEbooksBook.azw());
     book.setHtmlUrl(standardEbooksBook.html());
-    book.setProvider(Provider.STANDARD_EBOOK);
+    book.setProvider(Provider.STANDARD_EBOOKS);
     return book;
   }
 }

@@ -38,10 +38,10 @@ class SearchControllerIntegrationTest {
   void setUpDatabase() {
     bookRepository.deleteAll();
     bookRepository.saveAll(List.of(
-        stubBook("The Adventures of Tom Sawyer", "Mark Twain", Provider.STANDARD_EBOOK),
+        stubBook("The Adventures of Tom Sawyer", "Mark Twain", Provider.STANDARD_EBOOKS),
         stubBook("Adventures of Huckleberry Finn", "Mark Twain", Provider.GUTENBERG),
-        stubBook("Nineteen Eighty-Four (1984)", "George Orwell", Provider.STANDARD_EBOOK),
-        stubBook("The Mark of Zorro", "Johnston McCulley", Provider.STANDARD_EBOOK)
+        stubBook("Nineteen Eighty-Four (1984)", "George Orwell", Provider.STANDARD_EBOOKS),
+        stubBook("The Mark of Zorro", "Johnston McCulley", Provider.STANDARD_EBOOKS)
     ));
   }
 

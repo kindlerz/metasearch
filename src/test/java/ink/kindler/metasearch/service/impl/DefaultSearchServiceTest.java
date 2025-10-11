@@ -31,10 +31,10 @@ class DefaultSearchServiceTest {
     var bookOverViewOne = mock(BookOverview.class);
     var bookOverViewTwo = mock(BookOverview.class);
 
-    when(bookService.searchBooksByProviderAndTitleOrAuthorMatching(Provider.STANDARD_EBOOK, "Mark"))
+    when(bookService.searchBooksByProviderAndTitleOrAuthorMatching(Provider.STANDARD_EBOOKS, "Mark"))
         .thenReturn(List.of(bookOverViewOne, bookOverViewTwo));
 
-    var searchResult = searchService.search(Provider.STANDARD_EBOOK, "Mark");
+    var searchResult = searchService.search(Provider.STANDARD_EBOOKS, "Mark");
 
     assertThat(searchResult).isEqualTo(List.of(bookOverViewOne, bookOverViewTwo));
   }

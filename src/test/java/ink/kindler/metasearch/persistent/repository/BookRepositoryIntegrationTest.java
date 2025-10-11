@@ -30,15 +30,15 @@ class BookRepositoryIntegrationTest {
   @Test
   void shouldFindBooksByProviderAndAuthorOrTitleLike() {
     var books = List.of(
-        stubBook( "The Adventures of Tom Sawyer", "Mark Twain", Provider.STANDARD_EBOOK),
+        stubBook( "The Adventures of Tom Sawyer", "Mark Twain", Provider.STANDARD_EBOOKS),
         stubBook("Adventures of Huckleberry Finn", "Mark Twain", Provider.GUTENBERG),
-        stubBook("Mark Zuckerberg", "Mark Zuckerberg", Provider.STANDARD_EBOOK),
-        stubBook("Nineteen Eighty-Four (1984)", "George Orwell", Provider.STANDARD_EBOOK),
-        stubBook("The Mark of Zorro", "Johnston McCulley", Provider.STANDARD_EBOOK)
+        stubBook("Mark Zuckerberg", "Mark Zuckerberg", Provider.STANDARD_EBOOKS),
+        stubBook("Nineteen Eighty-Four (1984)", "George Orwell", Provider.STANDARD_EBOOKS),
+        stubBook("The Mark of Zorro", "Johnston McCulley", Provider.STANDARD_EBOOKS)
     );
     bookRepository.saveAll(books);
 
-    var foundBooks = bookRepository.searchBooks(Provider.STANDARD_EBOOK, "mArK", PageRequest.of(0, 10));
+    var foundBooks = bookRepository.searchBooks(Provider.STANDARD_EBOOKS, "mArK", PageRequest.of(0, 10));
 
     assertThat(foundBooks).hasSize(3);
 
