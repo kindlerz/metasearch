@@ -63,14 +63,14 @@ class SearchControllerTest {
 
   @Test
   void shouldSearchBookByQuery() throws Exception {
-    when(searchService.search(Provider.STANDARD_EBOOK, "Mark")).thenReturn(List.of(
+    when(searchService.search(Provider.STANDARD_EBOOKS, "Mark")).thenReturn(List.of(
         stubBookOverview(1L, "The Adventures of Tom Sawyer", "Mark Twain"),
         stubBookOverview(2L, "The Mark of Zorro", "Johnston McCulley")
     ));
 
     mockMvc.perform(get("/v1/books/search")
             .queryParam("q", "Mark")
-            .queryParam("provider", "STANDARD_EBOOK"))
+            .queryParam("provider", "STANDARD_EBOOKS"))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(content().json(BOOK_SEARCH_RESPONSE));
@@ -80,7 +80,7 @@ class SearchControllerTest {
   void shouldReturnBadRequestIfQuerySizeExceedsOneHundredCharacters() throws Exception {
     mockMvc.perform(get("/v1/books/search")
             .queryParam("q", QUERY_HUNDRED_FIVE_CHARACTERS)
-            .queryParam("provider", "STANDARD_EBOOK"))
+            .queryParam("provider", "STANDARD_EBOOKS"))
         .andDo(print())
         .andExpect(status().isBadRequest());
   }
@@ -116,7 +116,7 @@ class SearchControllerTest {
     book.setMobiUrl("https://mobiurl.com");
     book.setAzwUrl("https://azwurl.com");
     book.setHtmlUrl("https://htmlurl.com");
-    book.setProvider(Provider.STANDARD_EBOOK);
+    book.setProvider(Provider.STANDARD_EBOOKS);
     return book;
   }
 

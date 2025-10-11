@@ -48,10 +48,10 @@ class DefaultBookServiceTest {
   void shouldSearchBooksByProviderAndAuthorOrTitle() {
     var foundBooks = List.of(mock(BookOverview.class), mock(BookOverview.class));
 
-    when(bookRepository.searchBooks(Provider.STANDARD_EBOOK, "Mark", PageRequest.of(0, 50)))
+    when(bookRepository.searchBooks(Provider.STANDARD_EBOOKS, "Mark", PageRequest.of(0, 50)))
         .thenReturn(foundBooks);
 
-    var result = bookService.searchBooksByProviderAndTitleOrAuthorMatching(Provider.STANDARD_EBOOK, "Mark");
+    var result = bookService.searchBooksByProviderAndTitleOrAuthorMatching(Provider.STANDARD_EBOOKS, "Mark");
 
     assertThat(result).isEqualTo(foundBooks);
   }
