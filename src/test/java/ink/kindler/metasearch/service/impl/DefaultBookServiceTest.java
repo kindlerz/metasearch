@@ -67,4 +67,11 @@ class DefaultBookServiceTest {
     assertThat(result).isEqualTo(foundBook);
   }
 
+  @Test
+  void shouldDeleteAllBooks() {
+    bookService.deleteAll();
+
+    verify(bookRepository).deleteAll();
+  }
+
 }

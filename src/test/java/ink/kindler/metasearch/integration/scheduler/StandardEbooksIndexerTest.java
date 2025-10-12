@@ -12,7 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.Instant;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -36,6 +35,7 @@ class StandardEbooksIndexerTest {
     standardEbooksIndexer.indexEbooks();
 
     verify(bookService).saveBooks(anyList());
+    verify(bookService).deleteAll();
   }
 
   private List<StandardEbooksBook> stubStandardEbooksBooks() {
