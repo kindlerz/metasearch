@@ -15,4 +15,6 @@ public interface BookService {
   List<BookOverview> searchBooksByProviderAndTitleOrAuthorMatching(Provider provider, String query);
 
   Optional<Book> getBookById(Long id);
+
+  void deleteAll();
 }
