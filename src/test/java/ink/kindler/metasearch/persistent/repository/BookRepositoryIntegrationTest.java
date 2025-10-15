@@ -52,6 +52,23 @@ class BookRepositoryIntegrationTest {
     assertThat(foundBooks.get(2).getAuthor()).isEqualTo("Mark Zuckerberg");
   }
 
+  @Test
+  void shouldDeleteAllEbooksByProvider() {
+    var books = List.of(
+        stubBook( "The Adventures of Tom Sawyer", "Mark Twain", Provider.STANDARD_EBOOKS),
+        stubBook("Adventures of Huckleberry Finn", "Mark Twain", Provider.GUTENBERG),
+        stubBook("Mark Zuckerberg", "Mark Zuckerberg", Provider.STANDARD_EBOOKS)
+    );
+
+    bookRepository.saveAll(books);
+    bookRepository.deleteAllByProvider(Provider.STANDARD_EBOOKS);
+
+    var availableBooks = bookRepository.findAll();
+
+    assertThat(availableBooks).size().isEqualTo(1);
+    assertThat(availableBooks.getFirst().getTitle()).isEqualTo("Adventures of Huckleberry Finn");
+  }
+
   private Book stubBook(String title, String author, Provider bookProvider) {
     var book = new Book();
     book.setTitle(title);

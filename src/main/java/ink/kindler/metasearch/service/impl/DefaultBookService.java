@@ -40,7 +40,7 @@ public class DefaultBookService implements BookService {
   }
 
   @Override
-  public void deleteAll() {
-    bookRepository.deleteAll();;
+  public void deleteAll(Provider provider) {
+    bookRepository.deleteAllByProvider(provider);
   }
 }

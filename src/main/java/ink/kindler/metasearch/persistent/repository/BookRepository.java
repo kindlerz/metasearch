@@ -25,4 +25,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
         ORDER BY b.author ASC, b.title ASC
       """)
   List<BookOverview> searchBooks(@Param("provider") Provider provider, @Param("query") String query, Pageable pageable);
+
+  void deleteAllByProvider(Provider provider);
 }

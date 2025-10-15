@@ -2,6 +2,7 @@ package ink.kindler.metasearch.integration.scheduler;
 
 import ink.kindler.metasearch.integration.service.StandardEbooksIntegration;
 import ink.kindler.metasearch.integration.service.model.StandardEbooksBook;
+import ink.kindler.metasearch.persistent.entity.Provider;
 import ink.kindler.metasearch.service.BookService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,7 +36,7 @@ class StandardEbooksIndexerTest {
     standardEbooksIndexer.indexEbooks();
 
     verify(bookService).saveBooks(anyList());
-    verify(bookService).deleteAll();
+    verify(bookService).deleteAll(Provider.STANDARD_EBOOKS);
   }
 
   private List<StandardEbooksBook> stubStandardEbooksBooks() {
