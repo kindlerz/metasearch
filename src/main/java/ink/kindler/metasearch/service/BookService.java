@@ -17,4 +17,6 @@ public interface BookService {
   Optional<Book> getBookById(Long id);
 
   void deleteAll(Provider provider);
+
+  int countAvailableBooks(Provider provider);
 }

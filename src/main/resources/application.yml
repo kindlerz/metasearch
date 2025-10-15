@@ -13,3 +13,6 @@ spring:
 standard-ebooks:
   token: TOKEN
   opds-url: https://standardebooks.org/feeds/opds/all
+
+gutenberg-australia:
+  always-reindex: true

@@ -69,6 +69,21 @@ class BookRepositoryIntegrationTest {
     assertThat(availableBooks.getFirst().getTitle()).isEqualTo("Adventures of Huckleberry Finn");
   }
 
+  @Test
+  void shouldCountAvailableBooksByProvider() {
+    var books = List.of(
+        stubBook( "The Adventures of Tom Sawyer", "Mark Twain", Provider.STANDARD_EBOOKS),
+        stubBook("Adventures of Huckleberry Finn", "Mark Twain", Provider.GUTENBERG),
+        stubBook("Mark Zuckerberg", "Mark Zuckerberg", Provider.STANDARD_EBOOKS)
+    );
+
+    bookRepository.saveAll(books);
+
+    int availableBookCount = bookRepository.countByProvider(Provider.STANDARD_EBOOKS);
+
+    assertThat(availableBookCount).isEqualTo(2);
+  }
+
   private Book stubBook(String title, String author, Provider bookProvider) {
     var book = new Book();
     book.setTitle(title);

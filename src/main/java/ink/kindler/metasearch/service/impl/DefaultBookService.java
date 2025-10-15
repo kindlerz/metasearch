@@ -7,6 +7,7 @@ import ink.kindler.metasearch.persistent.repository.BookRepository;
 import ink.kindler.metasearch.service.BookService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,8 +40,14 @@ public class DefaultBookService implements BookService {
     return bookRepository.findById(id);
   }
 
+  @Transactional
   @Override
   public void deleteAll(Provider provider) {
     bookRepository.deleteAllByProvider(provider);
+  }
+
+  @Override
+  public int countAvailableBooks(Provider provider) {
+    return bookRepository.countByProvider(provider);
   }
 }
