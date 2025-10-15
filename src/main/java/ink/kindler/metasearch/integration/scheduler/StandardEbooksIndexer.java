@@ -27,7 +27,7 @@ public class StandardEbooksIndexer {
   @SchedulerLock(name = "StandardEbooksIndexer", lockAtLeastFor = "10m", lockAtMostFor = "30m")
   public void indexEbooks() {
     logger.info("Started StandardEbooks indexer");
-    bookService.deleteAll();
+    bookService.deleteAll(Provider.STANDARD_EBOOKS);
     var ebooks = standardEbooksIntegration.retrieveAllEbooksFromFeed().parallelStream().map(this::convertToBook).toList();
     bookService.saveBooks(ebooks);
     logger.info("Finished StandardEbooks indexer. {} ebooks upserted", ebooks.size());

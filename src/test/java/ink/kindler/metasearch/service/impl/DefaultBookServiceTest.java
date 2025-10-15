@@ -69,9 +69,9 @@ class DefaultBookServiceTest {
 
   @Test
   void shouldDeleteAllBooks() {
-    bookService.deleteAll();
+    bookService.deleteAll(Provider.STANDARD_EBOOKS);
 
-    verify(bookRepository).deleteAll();
+    verify(bookRepository).deleteAllByProvider(Provider.STANDARD_EBOOKS);
   }
 
 }
