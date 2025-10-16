@@ -26,6 +26,9 @@ public class DefaultGutenbergAustraliaService implements GutenbergAustraliaServi
 
   @Override
   public boolean shouldSkipIndexing() {
+    if (!properties.isEnabled()) {
+      return true;
+    }
     var bookCount = bookService.countAvailableBooks(Provider.GUTENBERG_AUSTRALIA);
     return bookCount > 0 && !properties.isAlwaysReindex();
   }

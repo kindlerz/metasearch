@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 public class GutenbergAustraliaProperties {
 
   private boolean alwaysReindex;
+  private boolean enabled;
 
   public boolean isAlwaysReindex() {
     return alwaysReindex;
@@ -15,5 +16,13 @@ public class GutenbergAustraliaProperties {
 
   public void setAlwaysReindex(boolean alwaysReindex) {
     this.alwaysReindex = alwaysReindex;
+  }
+
+  public boolean isEnabled() {
+    return enabled;
+  }
+
+  public void setEnabled(boolean enabled) {
+    this.enabled = enabled;
   }
 }

@@ -15,4 +15,5 @@ standard-ebooks:
   opds-url: https://standardebooks.org/feeds/opds/all
 
 gutenberg-australia:
+  enabled: true
   always-reindex: true
