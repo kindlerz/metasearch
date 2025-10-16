@@ -74,4 +74,11 @@ class DefaultBookServiceTest {
     verify(bookRepository).deleteAllByProvider(Provider.STANDARD_EBOOKS);
   }
 
+  @Test
+  void shouldCountAvailableBooksByProvider() {
+    bookService.countAvailableBooks(Provider.STANDARD_EBOOKS);
+
+    verify(bookRepository).countByProvider(Provider.STANDARD_EBOOKS);
+  }
+
 }

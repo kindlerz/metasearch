@@ -1,0 +1,1 @@
+ALTER TABLE book ADD google_cover_image_url VARCHAR(2048) DEFAULT NULL AFTER cover_image_url;

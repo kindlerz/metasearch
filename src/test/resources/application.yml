@@ -9,3 +9,7 @@ spring:
 standard-ebooks:
   token: TOKEN
   opds-url: http://localhost:${wiremock.server.port:0}/feeds/opds/all
+
+gutenberg-australia:
+  enabled: false
+  always-reindex: true

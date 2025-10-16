@@ -33,6 +33,9 @@ public class Book {
   @Column(name = "cover_image_url")
   private String coverImageUrl;
 
+  @Column(name = "google_cover_image_url")
+  private String googleCoverImageUrl;
+
   @Column(name = "epub_url")
   private String epubUrl;
 
@@ -94,6 +97,14 @@ public class Book {
 
   public void setCoverImageUrl(String coverImageUrl) {
     this.coverImageUrl = coverImageUrl;
+  }
+
+  public String getGoogleCoverImageUrl() {
+    return googleCoverImageUrl;
+  }
+
+  public void setGoogleCoverImageUrl(String googleCoverImageUrl) {
+    this.googleCoverImageUrl = googleCoverImageUrl;
   }
 
   public String getEpubUrl() {

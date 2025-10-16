@@ -27,4 +27,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
   List<BookOverview> searchBooks(@Param("provider") Provider provider, @Param("query") String query, Pageable pageable);
 
   void deleteAllByProvider(Provider provider);
+
+  int countByProvider(Provider provider);
 }
