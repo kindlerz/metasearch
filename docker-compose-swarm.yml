@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  web:
+  metasearch:
     image: "kasramp/metasearch:${IMAGE_TAG:-latest}"
     environment:
       SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
