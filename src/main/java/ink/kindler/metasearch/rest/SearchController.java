@@ -6,13 +6,11 @@ import ink.kindler.metasearch.persistent.projection.BookOverview;
 import ink.kindler.metasearch.rest.model.BookOverviewResponse;
 import ink.kindler.metasearch.rest.model.BookResponse;
 import ink.kindler.metasearch.service.SearchService;
-import java.util.List;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/v1/books")
@@ -25,7 +23,7 @@ public class SearchController {
   }
 
   @GetMapping("/search")
-  public ResponseEntity<List<BookOverviewResponse>> searchBook(@RequestParam(name="provider") Provider provider, @RequestParam(name = "q") String query) {
+  public ResponseEntity<List<BookOverviewResponse>> searchBook(@RequestParam(name = "provider") Provider provider, @RequestParam(name = "q") String query) {
     if (query.length() > 100) {
       return ResponseEntity.badRequest().build();
     }
@@ -54,7 +52,7 @@ public class SearchController {
         book.getId(),
         book.getTitle(),
         book.getAuthor(),
-        book.getCoverImageUrl(),
+        Objects.isNull(book.getCoverImageUrl()) ? book.getGoogleCoverImageUrl() : book.getCoverImageUrl(),
         book.getEpubUrl(),
         book.getKoboUrl(),
         book.getMobiUrl(),
