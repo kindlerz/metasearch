@@ -38,6 +38,21 @@ class SearchControllerTest {
       }
       """;
 
+  private static final String BOOK_BY_ID_GOOGLE_COVER_IMAGE_RESPONSE = """
+      {
+         "id":null,
+         "title":"The Adventures of Tom Sawyer",
+         "author":"Mark Twain",
+         "coverImageUrl":"https://googlecoverimage.com",
+         "epubUrl":"https://epuburl.com",
+         "koboUrl":"https://kobourl.com",
+         "mobiUrl":"https://mobiurl.com",
+         "azwUrl":"https://azwurl.com",
+         "htmlUrl":"https://htmlurl.com",
+         "summary":"Test summary"
+      }
+      """;
+
   private static final String BOOK_SEARCH_RESPONSE = """
       [
          {
@@ -96,6 +111,16 @@ class SearchControllerTest {
   }
 
   @Test
+  void shouldReturnBookWithGoogleCoverImageWhenActualCoverImageIsNotPresent() throws Exception {
+    when(searchService.findBookById(1L)).thenReturn(Optional.of(stubBook(null)));
+
+    mockMvc.perform(get("/v1/books/1"))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(content().json(BOOK_BY_ID_GOOGLE_COVER_IMAGE_RESPONSE));
+  }
+
+  @Test
   void shouldReturnNotFoundWhenBookByIdDoesNotExist() throws Exception {
     when(searchService.findBookById(1L)).thenReturn(Optional.empty());
 
@@ -106,11 +131,16 @@ class SearchControllerTest {
 
 
   private Book stubBook() {
+    return stubBook("https://coverimageurl.com");
+  }
+
+  private Book stubBook(String coverImage) {
     var book = new Book();
     book.setTitle("The Adventures of Tom Sawyer");
     book.setAuthor("Mark Twain");
     book.setSummary(stubBookSummary(book));
-    book.setCoverImageUrl("https://coverimageurl.com");
+    book.setCoverImageUrl(coverImage);
+    book.setGoogleCoverImageUrl("https://googlecoverimage.com");
     book.setEpubUrl("https://epuburl.com");
     book.setKoboUrl("https://kobourl.com");
     book.setMobiUrl("https://mobiurl.com");
