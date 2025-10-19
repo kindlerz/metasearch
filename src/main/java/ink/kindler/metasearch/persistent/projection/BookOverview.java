@@ -5,4 +5,5 @@ public interface BookOverview {
   String getTitle();
   String getAuthor();
   String getCoverImageUrl();
+  String getGoogleCoverImageUrl();
 }

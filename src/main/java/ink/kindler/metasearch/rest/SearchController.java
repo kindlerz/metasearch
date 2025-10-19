@@ -7,10 +7,10 @@ import ink.kindler.metasearch.rest.model.BookOverviewResponse;
 import ink.kindler.metasearch.rest.model.BookResponse;
 import ink.kindler.metasearch.service.SearchService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/v1/books")
@@ -43,7 +43,7 @@ public class SearchController {
         bookOverview.getId(),
         bookOverview.getTitle(),
         bookOverview.getAuthor(),
-        bookOverview.getCoverImageUrl()
+        StringUtils.hasLength(bookOverview.getCoverImageUrl()) ? bookOverview.getCoverImageUrl() : bookOverview.getGoogleCoverImageUrl()
     );
   }
 
@@ -52,7 +52,7 @@ public class SearchController {
         book.getId(),
         book.getTitle(),
         book.getAuthor(),
-        Objects.isNull(book.getCoverImageUrl()) ? book.getGoogleCoverImageUrl() : book.getCoverImageUrl(),
+        StringUtils.hasLength(book.getCoverImageUrl()) ? book.getCoverImageUrl() : book.getGoogleCoverImageUrl(),
         book.getEpubUrl(),
         book.getKoboUrl(),
         book.getMobiUrl(),

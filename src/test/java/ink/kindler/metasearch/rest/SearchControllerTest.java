@@ -6,6 +6,8 @@ import ink.kindler.metasearch.persistent.entity.Provider;
 import ink.kindler.metasearch.persistent.projection.BookOverview;
 import ink.kindler.metasearch.service.SearchService;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -79,8 +81,8 @@ class SearchControllerTest {
   @Test
   void shouldSearchBookByQuery() throws Exception {
     when(searchService.search(Provider.STANDARD_EBOOKS, "Mark")).thenReturn(List.of(
-        stubBookOverview(1L, "The Adventures of Tom Sawyer", "Mark Twain"),
-        stubBookOverview(2L, "The Mark of Zorro", "Johnston McCulley")
+        stubBookOverview(1L, "The Adventures of Tom Sawyer", "Mark Twain", null, "https://coverimageurl.com"),
+        stubBookOverview(2L, "The Mark of Zorro", "Johnston McCulley", "https://coverimageurl.com", null)
     ));
 
     mockMvc.perform(get("/v1/books/search")
@@ -110,9 +112,10 @@ class SearchControllerTest {
         .andExpect(content().json(BOOK_BY_ID_RESPONSE));
   }
 
-  @Test
-  void shouldReturnBookWithGoogleCoverImageWhenActualCoverImageIsNotPresent() throws Exception {
-    when(searchService.findBookById(1L)).thenReturn(Optional.of(stubBook(null)));
+  @ParameterizedTest
+  @CsvSource(value = {"null","''"}, nullValues = "null")
+  void shouldReturnBookWithGoogleCoverImageWhenActualCoverImageIsNotPresent(String coverImage) throws Exception {
+    when(searchService.findBookById(1L)).thenReturn(Optional.of(stubBook(coverImage)));
 
     mockMvc.perform(get("/v1/books/1"))
         .andDo(print())
@@ -157,7 +160,7 @@ class SearchControllerTest {
     return bookSummary;
   }
 
-  private BookOverview stubBookOverview(Long id, String title, String author) {
+  private BookOverview stubBookOverview(Long id, String title, String author, String coverImage, String googleCoverImage) {
     return new BookOverview() {
       @Override
       public Long getId() {
@@ -176,7 +179,12 @@ class SearchControllerTest {
 
       @Override
       public String getCoverImageUrl() {
-        return "https://coverimageurl.com";
+        return coverImage;
+      }
+
+      @Override
+      public String getGoogleCoverImageUrl() {
+        return googleCoverImage;
       }
     };
   }

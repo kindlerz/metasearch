@@ -17,7 +17,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
         SELECT b.id AS id,
             b.title AS title,
             b.author AS author,
-            b.coverImageUrl AS coverImageUrl
+            b.coverImageUrl AS coverImageUrl,
+            b.googleCoverImageUrl As googleCoverImageUrl
         FROM Book b
         WHERE b.provider = :provider
           AND (LOWER(b.author) LIKE LOWER(CONCAT('%', :query, '%'))
