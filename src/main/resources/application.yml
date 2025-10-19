@@ -16,4 +16,4 @@ standard-ebooks:
 
 gutenberg-australia:
   enabled: true
-  always-reindex: true
+  always-reindex: false
