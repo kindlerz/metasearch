@@ -1,7 +1,7 @@
 # 🔎 Metasearch  
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/kasramp/metasearch.svg)](https://hub.docker.com/repository/docker/kasramp/metasearch/general)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/kindlerz/metasearch/ci.yml?branch=main)](https://github.com/kindlerz/metasearch/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/kindlerz/metasearch/build_and_deploy.yml?branch=master)](https://github.com/kindlerz/metasearch/actions)
 [![License](https://img.shields.io/github/license/kindlerz/metasearch)](LICENSE)
 
 > 📚 *Search public-domain libraries with a single API.*
