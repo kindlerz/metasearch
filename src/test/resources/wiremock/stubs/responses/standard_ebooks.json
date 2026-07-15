@@ -1,7 +1,12 @@
 {
   "request": {
     "method": "GET",
-    "url": "/feeds/opds/all"
+    "url": "/feeds/opds/all",
+    "headers": {
+      "Accept": {
+        "equalTo": "application/atom+xml"
+      }
+    }
   },
   "response": {
     "status": 200,
