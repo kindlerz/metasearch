@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class StandardEbooksIndexer {
@@ -23,12 +24,17 @@ public class StandardEbooksIndexer {
     this.bookService = bookService;
   }
 
+  @Transactional(rollbackFor = Exception.class)
   @Scheduled(cron = "0 0 0 * * *")
-  @SchedulerLock(name = "StandardEbooksIndexer", lockAtLeastFor = "10m", lockAtMostFor = "30m")
+  @SchedulerLock(name = "StandardEbooksIndexer", lockAtMostFor = "30m")
   public void indexEbooks() {
     logger.info("Started StandardEbooks indexer");
-    bookService.deleteAll(Provider.STANDARD_EBOOKS);
     var ebooks = standardEbooksIntegration.retrieveAllEbooksFromFeed().parallelStream().map(this::convertToBook).toList();
+    if (ebooks.isEmpty()) {
+      logger.warn("StandardEbooks didn't return any books, skipping the database update");
+      return;
+    }
+    bookService.deleteAll(Provider.STANDARD_EBOOKS);
     bookService.saveBooks(ebooks);
     logger.info("Finished StandardEbooks indexer. {} ebooks upserted", ebooks.size());
   }

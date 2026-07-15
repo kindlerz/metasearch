@@ -14,8 +14,7 @@ import java.time.Instant;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class StandardEbooksIndexerTest {
@@ -37,6 +36,16 @@ class StandardEbooksIndexerTest {
 
     verify(bookService).saveBooks(anyList());
     verify(bookService).deleteAll(Provider.STANDARD_EBOOKS);
+  }
+
+  @Test
+  void shouldNotUpdateDatabaseWhenStandardEbookReturnsNoResult() {
+    when(standardEbooksIntegration.retrieveAllEbooksFromFeed()).thenReturn(List.of());
+
+    standardEbooksIndexer.indexEbooks();
+
+    verify(bookService, never()).deleteAll(Provider.STANDARD_EBOOKS);
+    verify(bookService, never()).saveBooks(anyList());
   }
 
   private List<StandardEbooksBook> stubStandardEbooksBooks() {
