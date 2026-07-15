@@ -26,7 +26,7 @@ public class StandardEbooksIndexer {
 
   @Transactional(rollbackFor = Exception.class)
   @Scheduled(cron = "0 0 0 * * *")
-  @SchedulerLock(name = "StandardEbooksIndexer", lockAtLeastFor = "10m", lockAtMostFor = "30m")
+  @SchedulerLock(name = "StandardEbooksIndexer", lockAtMostFor = "30m")
   public void indexEbooks() {
     logger.info("Started StandardEbooks indexer");
     var ebooks = standardEbooksIntegration.retrieveAllEbooksFromFeed().parallelStream().map(this::convertToBook).toList();

@@ -22,9 +22,10 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
 
-@SpringBootTest
+@SpringBootTest(properties = {"spring.task.scheduling.enabled=false"})
 @Import(TestcontainersConfiguration.class)
 class StandardEbooksIndexerIntegrationTest {
 
