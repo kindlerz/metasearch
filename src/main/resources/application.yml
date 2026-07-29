@@ -5,6 +5,16 @@ spring:
     username: root
     password: secret
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      pool-name: metasearch-pool
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 3000        # ms to wait for a connection from the pool before failing fast
+      idle-timeout: 300000            # 5 min
+      max-lifetime: 1200000           # 20 min, keep well under MySQL's wait_timeout (default 8h, but many managed MySQL/proxies cut it much shorter)
+      validation-timeout: 3000
+      connection-test-query: SELECT 1 # only needed for very old drivers, but harmless safety net
+      leak-detection-threshold: 30000 # logs a warning if a connection is held >30s — great for catching leaks
   jpa:
     hibernate.ddl-auto: none
     show-sql: true
