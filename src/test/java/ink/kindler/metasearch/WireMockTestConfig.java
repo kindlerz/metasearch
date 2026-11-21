@@ -1,15 +1,13 @@
 package ink.kindler.metasearch;
 
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.cloud.contract.wiremock.WireMockConfigurationCustomizer;
-import org.springframework.context.annotation.Bean;
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
+import org.wiremock.spring.ConfigureWireMock;
+import org.wiremock.spring.WireMockConfigurationCustomizer;
 
-@TestConfiguration
-
-public class WireMockTestConfig {
-  @Bean
-  WireMockConfigurationCustomizer optionsCustomizer() {
-    return config -> config.notifier(new ConsoleNotifier(true));
+public class WireMockTestConfig implements WireMockConfigurationCustomizer {
+  @Override
+  public void customize(WireMockConfiguration config, ConfigureWireMock options) {
+    config.notifier(new ConsoleNotifier(true));
   }
 }
