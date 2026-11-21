@@ -9,7 +9,7 @@ import ink.kindler.metasearch.integration.service.StandardEbooksIntegration;
 import ink.kindler.metasearch.integration.service.model.StandardEbooksBook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.boot.restclient.RestTemplateBuilder;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;

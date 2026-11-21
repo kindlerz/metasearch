@@ -8,20 +8,22 @@ import ink.kindler.metasearch.integration.service.model.StandardEbooksBook;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.util.ReflectionTestUtils;
+import org.wiremock.spring.ConfigureWireMock;
+import org.wiremock.spring.EnableWireMock;
+import org.wiremock.spring.InjectWireMock;
 
 import java.time.Instant;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Import({WireMockTestConfig.class, TestcontainersConfiguration.class})
-@AutoConfigureWireMock(
+@Import(TestcontainersConfiguration.class)
+@EnableWireMock(@ConfigureWireMock(
     port = 0,
-    stubs = "classpath:/wiremock/stubs/responses",
-    files = "classpath:/wiremock/stubs")
+    filesUnderClasspath = "wiremock/stubs",
+    configurationCustomizers = WireMockTestConfig.class))
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class StandardEbooksIntegrationIntegrationTest {
 
@@ -31,7 +33,7 @@ class StandardEbooksIntegrationIntegrationTest {
   @Autowired
   private StandardEbooksProperties properties;
 
-  @Autowired
+  @InjectWireMock
   private WireMockServer wireMockServer;
 
   @Test

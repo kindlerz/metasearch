@@ -1,4 +1,4 @@
-FROM amazoncorretto:21
+FROM amazoncorretto:25
 
 ARG JAR_FILE=build/libs/metasearch-0.0.1-SNAPSHOT.jar
 COPY ${JAR_FILE} app.jar
